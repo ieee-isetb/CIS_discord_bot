@@ -1,4 +1,4 @@
-const { Client, GatewayIntentBits } = require("discord.js");
+const { Client, GatewayIntentBits, ActivityType } = require("discord.js");
 const dotenv = require("dotenv");
 const http = require("http");
 dotenv.config();
@@ -31,6 +31,17 @@ const CUSTOM_REPLY = "<@&1289590923973496912> <@&1289597166276444181> A new user
 
 client.once("ready", () => {
   console.log(`✅ Logged in as ${client.user.tag}`);
+
+  // Set bot status and custom activity
+  client.user.setPresence({
+    status: "dnd", // Do Not Disturb
+    activities: [
+      {
+        name: "🤖 - Helping CIS Excoms",
+        type: ActivityType.Custom, // Use "Custom" for a custom status
+      },
+    ],
+  });
 });
 
 client.on("messageCreate", async (message) => {
@@ -46,5 +57,6 @@ client.on("messageCreate", async (message) => {
     }
   }
 });
+
 
 client.login(process.env.TOKEN);
